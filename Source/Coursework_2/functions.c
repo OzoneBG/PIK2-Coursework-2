@@ -25,7 +25,7 @@ void print_menu(int menu, int selected)
 	{
 		if (selected == 1)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, mainMenu_first);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, mainMenu_first);
 		}
 		else 
 		{
@@ -33,7 +33,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 2)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, mainMenu_second);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, mainMenu_second);
 		}
 		else
 		{
@@ -41,7 +41,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 3)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, mainMenu_third);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, mainMenu_third);
 		}
 		else
 		{
@@ -53,7 +53,7 @@ void print_menu(int menu, int selected)
 	{
 		if (selected == 1)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_1);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_1);
 		}
 		else
 		{
@@ -61,7 +61,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 2)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_2);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_2);
 		}
 		else
 		{
@@ -69,7 +69,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 3)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_3);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_3);
 		}
 		else
 		{
@@ -77,7 +77,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 4)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_4);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_4);
 		}
 		else
 		{
@@ -85,7 +85,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 5)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_5);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_5);
 		}
 		else
 		{
@@ -93,7 +93,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 6)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_6);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_6);
 		}
 		else
 		{
@@ -101,7 +101,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 7)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, manageMenu_7);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_7);
 		}
 		else
 		{
@@ -112,7 +112,7 @@ void print_menu(int menu, int selected)
 	{
 		if (selected == 1)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, colorMenu_1);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, colorMenu_1);
 		}
 		else
 		{
@@ -120,7 +120,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 2)
 		{
-			set_text_color(FOREGROUND_RED | BACKGROUND_BLUE, colorMenu_2);
+			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, colorMenu_2);
 		}
 		else
 		{

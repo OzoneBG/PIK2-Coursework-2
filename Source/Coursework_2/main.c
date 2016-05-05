@@ -126,9 +126,9 @@ int main()
 				{
 					if (selectedMenuOption == 1)
 					{
-						clear_cons();
 						printf("Please enter file to select color scheme!\n");
 						system("pause");
+						clear_cons();
 					}
 					else if (selectedMenuOption == 2)
 					{
