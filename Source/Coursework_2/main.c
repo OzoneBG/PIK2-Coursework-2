@@ -14,6 +14,7 @@ int main()
 	// Current menu layer
 	int menuLayer = 1;
 
+	// Was the text actually rendered
 	int text_rendered = 1;
 
 	int maxOptions = get_max_options(menuLayer);
@@ -138,9 +139,6 @@ int main()
 				}
 			}
 		}
-
-		//clear_cons();
-
 	}
 
 	return 0;
