@@ -110,13 +110,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Console.c" />
     <ClCompile Include="functions.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colors.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="Declarations.h" />
     <ClInclude Include="functions.h" />
   </ItemGroup>

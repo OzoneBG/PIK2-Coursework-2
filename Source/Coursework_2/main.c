@@ -44,7 +44,8 @@ int main()
 		{
 			text_rendered = 1;
 			clear_cons();
-			int key = GetKey();
+			int key = getch();
+
 			if (key == 72)//Key up
 			{
 				selectedMenuOption = fix_for_up(selectedMenuOption, maxOptions);

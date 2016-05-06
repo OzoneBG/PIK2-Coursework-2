@@ -12,7 +12,6 @@
 
 // Project headers
 #include "functions.h"
-#include "console.h"
 
 #define WIN_TERMINAL
 #ifdef WIN_TERMINAL

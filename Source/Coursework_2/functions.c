@@ -134,16 +134,6 @@ void clear_cons()
 	system(CLEAR_COMMAND);
 }
 
-int GetKey()
-{
-	int ch;
-	ch = getch();
-	if (ch == 0 || ch == 224) {
-		ch = getch();
-	}
-	return ch;
-}
-
 int get_max_options(int menuLayer)
 {
 	int count = 0;
@@ -188,4 +178,20 @@ int fix_for_down(int selectedOp, int max)
 	}
 
 	return selectedOp;
+}
+
+void set_text_color(WORD Color, char* text)
+{
+	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+	WORD wOldColorAttrs;
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+
+	GetConsoleScreenBufferInfo(h, &consoleInfo);
+	wOldColorAttrs = consoleInfo.wAttributes;
+
+	SetConsoleTextAttribute(h, Color);
+
+	printf("%s", text);
+
+	SetConsoleTextAttribute(h, wOldColorAttrs);
 }
