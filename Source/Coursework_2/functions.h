@@ -2,7 +2,7 @@
 #include "declarations.h"
 
 // Print menu
-void print_menu(int menu, int selected);
+void print_menu(int menu, int selected, struct ColorConfig* cfg);
 
 // Clear the console
 void clear_cons();
@@ -18,3 +18,12 @@ int fix_for_down(int selectedOp, int max);
 
 // Set the text to a specific color
 void set_text_color(WORD Color, char* text);
+
+// Load default color set
+void load_default_colors(struct ColorConfig* config);
+
+// Load custom color set by file
+void load_custom_colors(struct ColorConfig* config, char* str);
+
+// Load a custom file for color scheme
+struct ColorConfig load_custom_colorfile(char* path);

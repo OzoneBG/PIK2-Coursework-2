@@ -17,6 +17,26 @@ int main()
 	// Was the text actually rendered
 	int text_rendered = 1;
 
+	// Current color configuration
+	struct ColorConfig colorconf;
+
+	// Get user input for color scheme file
+	printf("Welcome to the warehouse manager program!\n");
+	printf("Do you want to load a color scheme file? Y/N\n");
+	char ch = getch();
+	
+	if (ch == 'y' || ch == 'Y')
+	{
+		char* path[100];
+		scanf("%s", path);
+		printf("Custom path selected!\n %s\n", path);
+	}
+	else
+	{
+		clear_cons();
+		load_default_colors(&colorconf);
+	}
+	
 	int maxOptions = get_max_options(menuLayer);
 
 	while (should_run)
@@ -25,17 +45,17 @@ int main()
 		{
 			if (menuLayer == MAIN_MENU)
 			{
-				print_menu(MAIN_MENU, selectedMenuOption);
+				print_menu(MAIN_MENU, selectedMenuOption, &colorconf);
 				text_rendered = 0;
 			}
 			else if (menuLayer == MANAGE_MENU)
 			{
-				print_menu(MANAGE_MENU, selectedMenuOption);
+				print_menu(MANAGE_MENU, selectedMenuOption, &colorconf);
 				text_rendered = 0;
 			}
 			else if (menuLayer == COLOR_MENU)
 			{
-				print_menu(COLOR_MENU, selectedMenuOption);
+				print_menu(COLOR_MENU, selectedMenuOption, &colorconf);
 				text_rendered = 0;
 			}
 		}

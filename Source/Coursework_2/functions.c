@@ -1,12 +1,12 @@
 #include "functions.h"
 
-void print_menu(int menu, int selected)
+void print_menu(int menu, int selected, struct ColorConfig* cfg)
 {
 	
 	/* Main menu text */
-	char mainMenu_first[] = "1. Mechandise management\n";
-	char mainMenu_second[] = "2. Select color scheme\n";
-	char mainMenu_third[] = "3. Exit\n";
+	char mainMenu_1[] = "1. Mechandise management\n";
+	char mainMenu_2[] = "2. Select color scheme\n";
+	char mainMenu_3[] = "3. Exit\n";
 
 	/* Manage menu text */
 	char manageMenu_1[] = "1. Add new merchandise\n";
@@ -25,27 +25,27 @@ void print_menu(int menu, int selected)
 	{
 		if (selected == 1)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, mainMenu_first);
+			set_text_color(cfg->text_color | cfg->background_color, mainMenu_1);
 		}
 		else 
 		{
-			printf(mainMenu_first);
+			printf(mainMenu_1);
 		}
 		if (selected == 2)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, mainMenu_second);
+			set_text_color(cfg->text_color | cfg->background_color, mainMenu_2);
 		}
 		else
 		{
-			printf(mainMenu_second);
+			printf(mainMenu_2);
 		}
 		if (selected == 3)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, mainMenu_third);
+			set_text_color(cfg->text_color | cfg->background_color, mainMenu_3);
 		}
 		else
 		{
-			printf(mainMenu_third);
+			printf(mainMenu_3);
 		}
 
 	} // Main Menu
@@ -53,7 +53,7 @@ void print_menu(int menu, int selected)
 	{
 		if (selected == 1)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_1);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_1);
 		}
 		else
 		{
@@ -61,7 +61,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 2)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_2);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_2);
 		}
 		else
 		{
@@ -69,7 +69,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 3)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_3);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_3);
 		}
 		else
 		{
@@ -77,7 +77,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 4)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_4);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_4);
 		}
 		else
 		{
@@ -85,7 +85,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 5)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_5);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_5);
 		}
 		else
 		{
@@ -93,7 +93,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 6)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_6);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_6);
 		}
 		else
 		{
@@ -101,7 +101,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 7)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, manageMenu_7);
+			set_text_color(cfg->text_color | cfg->background_color, manageMenu_7);
 		}
 		else
 		{
@@ -112,7 +112,7 @@ void print_menu(int menu, int selected)
 	{
 		if (selected == 1)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, colorMenu_1);
+			set_text_color(cfg->text_color | cfg->background_color, colorMenu_1);
 		}
 		else
 		{
@@ -120,7 +120,7 @@ void print_menu(int menu, int selected)
 		}
 		if (selected == 2)
 		{
-			set_text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY | BACKGROUND_RED, colorMenu_2);
+			set_text_color(cfg->text_color | cfg->background_color, colorMenu_2);
 		}
 		else
 		{
@@ -195,3 +195,42 @@ void set_text_color(WORD Color, char* text)
 
 	SetConsoleTextAttribute(h, wOldColorAttrs);
 }
+
+void load_default_colors(struct ColorConfig * config)
+{
+	// Default values:
+	// Background Color: Red
+	// Text Color: Yellow
+
+	config->background_color = BACKGROUND_RED;
+	config->text_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+}
+
+void load_custom_colors(struct ColorConfig * config, char * str)
+{
+	//Get colors from a file by a buffer
+	struct ColorConfig buffer;
+
+	buffer = load_custom_colorfile(str);
+
+	//Load them to the config value
+	config->background_color = buffer.background_color;
+	config->text_color = buffer.text_color;
+}
+
+struct ColorConfig load_custom_colorfile(char * path)
+{
+	FILE* fp = fopen(path, "r");
+
+	struct ColorConfig colorCfg;
+
+	if (fp != NULL)
+	{
+		fread(&colorCfg, sizeof(struct ColorConfig), 1, fp);
+	}
+
+	fclose(fp);
+
+	return colorCfg;
+}
+

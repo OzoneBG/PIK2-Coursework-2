@@ -12,6 +12,7 @@
 
 // Project headers
 #include "functions.h"
+#include "colorconfig.h"
 
 #define WIN_TERMINAL
 #ifdef WIN_TERMINAL

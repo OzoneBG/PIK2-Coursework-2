@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8921976D-1512-45B3-898F-5954793F7305}</ProjectGuid>
-    <RootNamespace>Coursework_2</RootNamespace>
+    <ProjectGuid>{712C3606-1721-4C8E-B87D-3CA52CF598EF}</ProjectGuid>
+    <RootNamespace>ColorSchemeGenerator</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -110,14 +110,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="functions.c" />
-    <ClCompile Include="main.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="colorconfig.h" />
-    <ClInclude Include="colors.h" />
-    <ClInclude Include="Declarations.h" />
-    <ClInclude Include="functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
