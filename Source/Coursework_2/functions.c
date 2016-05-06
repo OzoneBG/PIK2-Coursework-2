@@ -196,41 +196,38 @@ void set_text_color(WORD Color, char* text)
 	SetConsoleTextAttribute(h, wOldColorAttrs);
 }
 
-void load_default_colors(struct ColorConfig * config)
+struct ColorConfig load_default_colors()
 {
 	// Default values:
 	// Background Color: Red
 	// Text Color: Yellow
 
-	config->background_color = BACKGROUND_RED;
-	config->text_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+	struct ColorConfig config;
+	config.background_color = BACKGROUND_RED;
+	config.text_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+
+	return config;
 }
 
-void load_custom_colors(struct ColorConfig * config, char * str)
+void load_custom_colors(struct ColorConfig* config, char* path)
 {
-	//Get colors from a file by a buffer
 	struct ColorConfig buffer;
-
-	buffer = load_custom_colorfile(str);
-
-	//Load them to the config value
-	config->background_color = buffer.background_color;
-	config->text_color = buffer.text_color;
-}
-
-struct ColorConfig load_custom_colorfile(char * path)
-{
+	strcat(path, ".bin");
 	FILE* fp = fopen(path, "r");
-
-	struct ColorConfig colorCfg;
 
 	if (fp != NULL)
 	{
-		fread(&colorCfg, sizeof(struct ColorConfig), 1, fp);
+		fread(&buffer, sizeof(struct ColorConfig), 1, fp);
+
+		config->background_color = buffer.background_color;
+		config->text_color = buffer.text_color;
+
+		fclose(fp);
+	}
+	else
+	{
+		*config = load_default_colors();
 	}
 
-	fclose(fp);
-
-	return colorCfg;
+	
 }
-

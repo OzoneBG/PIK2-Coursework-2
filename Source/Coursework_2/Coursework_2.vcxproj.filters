@@ -29,9 +29,6 @@
     <ClInclude Include="functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="colors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="colorconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -115,7 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorconfig.h" />
-    <ClInclude Include="colors.h" />
     <ClInclude Include="Declarations.h" />
     <ClInclude Include="functions.h" />
   </ItemGroup>

@@ -20,10 +20,7 @@ int fix_for_down(int selectedOp, int max);
 void set_text_color(WORD Color, char* text);
 
 // Load default color set
-void load_default_colors(struct ColorConfig* config);
+struct ColorConfig load_default_colors();
 
 // Load custom color set by file
-void load_custom_colors(struct ColorConfig* config, char* str);
-
-// Load a custom file for color scheme
-struct ColorConfig load_custom_colorfile(char* path);
+void load_custom_colors(struct ColorConfig* config, char* path);

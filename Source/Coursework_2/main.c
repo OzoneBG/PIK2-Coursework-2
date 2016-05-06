@@ -23,18 +23,20 @@ int main()
 	// Get user input for color scheme file
 	printf("Welcome to the warehouse manager program!\n");
 	printf("Do you want to load a color scheme file? Y/N\n");
-	char ch = getch();
-	
+	char ch;
+	scanf("%c", &ch);
 	if (ch == 'y' || ch == 'Y')
 	{
+		printf("Please specify filename (only filename): ");
 		char* path[100];
 		scanf("%s", path);
-		printf("Custom path selected!\n %s\n", path);
+		load_custom_colors(&colorconf, path);
+		clear_cons();
 	}
 	else
 	{
 		clear_cons();
-		load_default_colors(&colorconf);
+		colorconf = load_default_colors();
 	}
 	
 	int maxOptions = get_max_options(menuLayer);
@@ -147,7 +149,10 @@ int main()
 				{
 					if (selectedMenuOption == 1)
 					{
-						printf("Please enter file to select color scheme!\n");
+						printf("Please specify filename (only filename): ");
+						char* path[100];
+						scanf("%s", path);
+						load_custom_colors(&colorconf, path);
 						system("pause");
 						clear_cons();
 					}
