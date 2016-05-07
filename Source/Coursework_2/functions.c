@@ -231,3 +231,24 @@ void load_custom_colors(struct ColorConfig* config, char* path)
 
 	
 }
+
+/*int save_to_disk(Vector * products, FILE * db)
+{
+	int success = 0;
+
+	
+
+	if (db != NULL)
+	{
+		int count = 0;
+		while (count <= products->size)
+		{
+			fwrite(&products->data[count], sizeof(struct Merchandise), 1, db);
+			count++;
+		}
+
+		success = 1;
+	}
+
+	return success;
+}*/

@@ -24,3 +24,6 @@ struct ColorConfig load_default_colors();
 
 // Load custom color set by file
 void load_custom_colors(struct ColorConfig* config, char* path);
+
+// Save value from the vector to database file on the disk
+//int save_to_disk(struct Vector* products, FILE* db);

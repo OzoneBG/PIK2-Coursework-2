@@ -5,9 +5,6 @@ int main()
 	//Should the program contninue the main loop
 	int should_run = 1;
 
-	//User input
-	char option;
-
 	//Currently selected row
 	int selectedMenuOption = 1;
 
@@ -20,8 +17,19 @@ int main()
 	// Current color configuration
 	struct ColorConfig colorconf;
 
+	// Open database file, ready for reading and writing operations
+	FILE* database = fopen("database.bin", "w+");
+
+	// Create an empty vector to keep record of all merchandise read from the database
+	Vector merch_list;
+
+	vector_init(&merch_list);
+
+	printf("Size: %d and Capacity: %d\n", merch_list.size, merch_list.capacity);
+
 	// Get user input for color scheme file
 	printf("Welcome to the warehouse manager program!\n");
+	read_all_merchandise(database, &merch_list);
 	printf("Do you want to load a color scheme file? Y/N\n");
 	char ch;
 	scanf("%c", &ch);
@@ -60,6 +68,8 @@ int main()
 				print_menu(COLOR_MENU, selectedMenuOption, &colorconf);
 				text_rendered = 0;
 			}
+
+			printf("Keeping track of %d records..\n", merch_list.size);
 		}
 
 		if (kbhit() != 0)
@@ -96,6 +106,7 @@ int main()
 					else if (selectedMenuOption == 3)
 					{
 						should_run = 0;
+						//save_to_disk(&merch_list, database);
 					}
 				}
 				//If we are in the manage menu, call manage functions
@@ -103,7 +114,24 @@ int main()
 				{
 					if (selectedMenuOption == 1)
 					{
-						printf("You wanted to add a new merchandise!\n");
+						printf("Adding new merchandise\n\n");
+						
+						struct Merchandise product;
+
+						//suzdavam nov obekt
+						product.id = 1;
+						strcpy(product.merch_name, "Nvidia GTX 960");
+						product.price = 360.f;
+						product.quantity = 25;
+						struct DateTime dt;
+						GetSystemTime(&dt);
+						//product.date_created = dt;
+						product.expire_days = 100;
+						strcpy(product.producer, "PALIT");
+						strcpy(product.taxNumber, "253hdshad");
+
+						vector_append(&merch_list, &product);
+
 						system("pause");
 						clear_cons();
 					}

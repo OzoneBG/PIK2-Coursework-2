@@ -3,7 +3,6 @@
 /* Defined so Visual Studio doesn't pop up security warnings */
 #define _CRT_SECURE_NO_WARNINGS
 
-/* System libraries */
 // System headers
 #include <windows.h>
 #include <stdio.h>
@@ -13,6 +12,9 @@
 // Project headers
 #include "functions.h"
 #include "colorconfig.h"
+#include "datetime.h"
+#include "merchandise.h"
+#include "vector.h"
 
 #define WIN_TERMINAL
 #ifdef WIN_TERMINAL
