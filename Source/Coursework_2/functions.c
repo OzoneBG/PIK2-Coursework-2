@@ -433,6 +433,7 @@ void get_time_by_string(struct DateTime * date, char * date_string)
 				int month = atoi(current);
 				if (month <= 12)
 				{
+					month--;
 					date->month = month;
 				}
 				else
@@ -592,19 +593,149 @@ void print_all_expired_products(Vector * list)
 		for (i = 0; i < list->size; i++)
 		{
 			struct Merchandise product = list->data[i];
+			if (has_expired(product))
+			{
 
-			if(has_expired(product))
+				printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
+				printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
+				printf("Tax number: %s\n", product.taxNumber);
 
-			printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
-			printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
-			printf("Tax number: %s\n", product.taxNumber);
-
-			print_char(25, '-');
+				print_char(25, '-');
+			}
 		}
 	}
 }
 
 int has_expired(struct Merchandise product)
 {
-	
+	int has_expr = 0;
+
+	struct DateTime now;
+	GetSystemTime(&now);
+
+	int years = now.year - product.date_created.year;
+	int months = now.month - product.date_created.month;
+	int days = now.day - product.date_created.day;
+
+	int totalDays = 365 * years;
+
+	if (months > 0)
+	{
+		totalDays += get_days_in_months(months);
+	}
+	else
+	{
+		totalDays -= get_days_in_months(months);
+	}
+
+	if (days > 0)
+	{
+		totalDays += days;
+	}
+	else
+	{
+		totalDays -= days;
+	}
+
+	if (totalDays > product.expire_days)
+	{
+		has_expr = 1;
+	}
+
+	return has_expr;
+}
+
+void cpy_time(struct DateTime * time, struct tm * str_time)
+{
+	str_time->tm_mday = time->day;
+	str_time->tm_mon = time->month;
+	str_time->tm_year = time->year;
+	str_time->tm_hour = time->year;
+	str_time->tm_min = time->minutes;
+	str_time->tm_sec = time->seconds;
+}
+
+int get_days_in_months(int months)
+{
+	int days = 0;
+	int i;
+	for (i = 0; i < months; i++)
+	{
+		if (i % 2 == 0)
+		{
+			days += 30;
+		}
+		else
+		{
+			days += 31;
+		}
+	}
+
+	return days;
+}
+
+void edit_by_id(int id, Vector * list)
+{
+	//TO DO
+	// fix
+
+	/*if (list->size > 0)
+	{
+		int i = 0;
+		for (i; i < list->size; i++)
+		{
+			if (list->data[i].id == id)
+			{
+				// found match
+				// print quantity
+				printf("Current quantity of %s is %d\n", list->data[i].merch_name, list->data[i].quantity);
+
+				// ask for quantity
+				int choice;
+				printf("Do you want to add or remove quantity 1 or 2: "); scanf("%d", &choice);
+
+				unsigned short new_quantity;
+				printf("New quantity: "); scanf("%hu", &new_quantity);
+
+				int can_modify = 0;
+
+				// do chec
+				if (choice == 1) // we want to add
+				{
+					unsigned short old_quantity = list->data[i].quantity;
+					list->data[i].quantity = new_quantity + old_quantity;
+					break;
+				}
+				else if (choice == 2) // we want to substract
+				{
+					while (new_quantity > list->data[i].quantity)
+					{
+						printf("New quantity: "); scanf("%hu", &new_quantity);
+
+						if (new_quantity > list->data[i].quantity)
+						{
+							printf("You can't remove more than there is!\n");
+						}
+						else if (new_quantity == 0)
+						{
+							//TO DO
+							//Remove from file
+							printf("Removing from file\n");
+						}
+						else
+						{
+							can_modify = 1;
+						}
+					}
+
+					if (can_modify)
+					{
+						unsigned short old_quantity = list->data[i].quantity;
+						list->data[i].quantity = old_quantity - new_quantity;
+						break;
+					}
+				}
+			}
+		}
+	}*/
 }

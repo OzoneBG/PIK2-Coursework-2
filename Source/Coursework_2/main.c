@@ -26,6 +26,7 @@ int main()
 
 	vector_init(&merch_list);
 
+
 	//printf("Size: %d and Capacity: %d\n", merch_list.size, merch_list.capacity);
 
 	// Get user input for color scheme file
@@ -123,16 +124,17 @@ int main()
 						struct Merchandise product;
 
 						//Create new basic object
-						product.id = 1;
+						/*product.id = 1;
 						strcpy(product.merch_name, "Nvidia GTX 960");
-						product.price = 360.f;
-						product.quantity = 25;
+						product.price = 660.f;
+						product.quantity = 18;
 						struct DateTime dt;
 						GetSystemTime(&dt);
+						dt.day = 3;
 						product.date_created = dt;
-						product.expire_days = 100;
+						product.expire_days = 10;
 						strcpy(product.producer, "PALIT");
-						strcpy(product.taxNumber, "253hdshad");
+						strcpy(product.taxNumber, "japantax");*/
 
 
 						/* Uncomment to let user create products */
@@ -142,7 +144,7 @@ int main()
 						//printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
 						//printf("Tax number: %s\n", product.taxNumber);
 
-						vector_append(&merch_list, &product);
+						//vector_append(&merch_list, &product);
 
 						system("pause");
 						clear_cons();
@@ -150,12 +152,21 @@ int main()
 					else if (selectedMenuOption == 2)
 					{
 						printf("You wanted to edit the merchandise!\n");
+
+						int id;
+						printf("Select id: "); scanf("%d", &id);
+
+						edit_by_id(id, &merch_list);
+
 						system("pause");
 						clear_cons();
 					}
 					else if (selectedMenuOption == 3)
 					{
 						printf("Here's a list of all expired merchandise!\n");
+
+						print_all_expired_products(&merch_list);
+
 						system("pause");
 						clear_cons();
 					}

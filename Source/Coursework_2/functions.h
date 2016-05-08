@@ -57,3 +57,12 @@ void print_all_expired_products(struct Vector* list);
 
 // Has the products expired
 int has_expired(struct Merchandise product);
+
+// Copies DateTime struct to tm struct
+void cpy_time(struct DateTime* time, struct tm* str_time);
+
+// Gets total days in a month
+int get_days_in_months(int months);
+
+// Edit record by id
+void edit_by_id(int id, struct Vector* list);
