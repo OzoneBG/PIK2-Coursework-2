@@ -26,4 +26,34 @@ struct ColorConfig load_default_colors();
 void load_custom_colors(struct ColorConfig* config, char* path);
 
 // Save value from the vector to database file on the disk
-//int save_to_disk(struct Vector* products, FILE* db);
+int save_to_disk(struct Vector* products);
+
+// Check if id is unique number
+int is_unique(int id, struct Vector* products);
+
+// Creates new merchandise object by user input
+struct Merchandise make_new_merchandise(struct Vector* list);
+
+// Generates a new DateTime object by string
+void get_time_by_string(struct DateTime* date, char* date_string);
+
+// Gets new line input to clear the input stream
+void get_empty_input();
+
+// Prints all products
+void print_all_values(struct Vector* merch_list);
+
+// Prints specified amount of specified character on one line
+void print_char(int count, char ch);
+
+// Finds a product by id and prints it
+void print_product_by_id(struct Vector* list, int id);
+
+// Prints a single product
+void print_single_product(struct Merchandise product);
+
+// Finds all expired products and prints them
+void print_all_expired_products(struct Vector* list);
+
+// Has the products expired
+int has_expired(struct Merchandise product);

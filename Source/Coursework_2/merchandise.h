@@ -30,4 +30,4 @@ typedef struct Merchandise {
 };
 
 // Read all merchandise from a database file
-void read_all_merchandise(FILE* db, struct Vector* vec);
+void read_all_merchandise(struct Vector* vec);

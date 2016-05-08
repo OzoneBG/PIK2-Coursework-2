@@ -1,28 +1,32 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include "vector.h"
-#include "merch.h"
+#include <time.h>
+#include <windows.h>
+
+typedef struct DateTime {
+	WORD year;
+	WORD month;
+	WORD day_of_week;
+	WORD day;
+	WORD hours;
+	WORD minutes;
+	WORD seconds;
+	WORD milliseconds;
+};
+
 
 int main()
 {
-	Vector tk;
+	struct DateTime a, b;
+	GetSystemTime(&a);
+	time_t start, end;
 
-	Merchandise product;
+	struct tm str_time;
 
-	//suzdavam nov obekt
-	product.id = 1;
-	strcpy(product.merch_name, "Nvidia GTX 960");
-	product.price = 360.f;
-	product.quantity = 25;
-	//product.date_created = dt;
-	product.expire_days = 100;
-	strcpy(product.producer, "PALIT");
-	strcpy(product.taxNumber, "253hdshad");
+	str_time.tm_mday = a.day;
 
-	vector_init(&tk);
 
-	vector_append(&tk, &product);
-
-	Merchandise merch = vector_get(&tk, 0);
 
 	getch();
+	return 0;
 }

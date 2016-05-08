@@ -18,18 +18,21 @@ int main()
 	struct ColorConfig colorconf;
 
 	// Open database file, ready for reading and writing operations
-	FILE* database = fopen("database.bin", "w+");
+	//FILE* db_read = fopen("database.bin", "r");
+	//FILE* db_write = fopen("database.bin", "w");
 
 	// Create an empty vector to keep record of all merchandise read from the database
 	Vector merch_list;
 
 	vector_init(&merch_list);
 
-	printf("Size: %d and Capacity: %d\n", merch_list.size, merch_list.capacity);
+	//printf("Size: %d and Capacity: %d\n", merch_list.size, merch_list.capacity);
 
 	// Get user input for color scheme file
 	printf("Welcome to the warehouse manager program!\n");
-	read_all_merchandise(database, &merch_list);
+
+	read_all_merchandise(&merch_list);
+
 	printf("Do you want to load a color scheme file? Y/N\n");
 	char ch;
 	scanf("%c", &ch);
@@ -106,7 +109,8 @@ int main()
 					else if (selectedMenuOption == 3)
 					{
 						should_run = 0;
-						//save_to_disk(&merch_list, database);
+						remove("database.bin");
+						save_to_disk(&merch_list);
 					}
 				}
 				//If we are in the manage menu, call manage functions
@@ -118,17 +122,25 @@ int main()
 						
 						struct Merchandise product;
 
-						//suzdavam nov obekt
+						//Create new basic object
 						product.id = 1;
 						strcpy(product.merch_name, "Nvidia GTX 960");
 						product.price = 360.f;
 						product.quantity = 25;
 						struct DateTime dt;
 						GetSystemTime(&dt);
-						//product.date_created = dt;
+						product.date_created = dt;
 						product.expire_days = 100;
 						strcpy(product.producer, "PALIT");
 						strcpy(product.taxNumber, "253hdshad");
+
+
+						/* Uncomment to let user create products */
+						//product = make_new_merchandise(&merch_list);
+
+						//printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
+						//printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
+						//printf("Tax number: %s\n", product.taxNumber);
 
 						vector_append(&merch_list, &product);
 
@@ -156,12 +168,20 @@ int main()
 					else if (selectedMenuOption == 5)
 					{
 						printf("You wanted to find merchandise by id!\n");
+
+						int id;
+						printf("Id: "); scanf("%d", &id);
+						print_product_by_id(&merch_list, id);
+
 						system("pause");
 						clear_cons();
 					}
 					else if (selectedMenuOption == 6)
 					{
 						printf("Here's a list of all eligble merchandise!\n");
+
+						print_all_values(&merch_list);
+
 						system("pause");
 						clear_cons();
 					}

@@ -232,23 +232,379 @@ void load_custom_colors(struct ColorConfig* config, char* path)
 	
 }
 
-/*int save_to_disk(Vector * products, FILE * db)
+int save_to_disk(Vector * products)
 {
 	int success = 0;
 
-	
+	FILE* db = fopen("database.bin", "w");
 
 	if (db != NULL)
 	{
-		int count = 0;
-		while (count <= products->size)
+		if (products->size > 0)
 		{
-			fwrite(&products->data[count], sizeof(struct Merchandise), 1, db);
-			count++;
-		}
+			int count = 0;
+			while (count < products->size)
+			{
+				fwrite(&products->data[count], sizeof(struct Merchandise), 1, db);
+				count++;
+			}
 
-		success = 1;
+			success = 1;
+		}
+		
 	}
 
+	fclose(db);
+
 	return success;
-}*/
+}
+
+int is_unique(int id, Vector * products)
+{
+	int is_found = 0;
+
+	int i;
+	for (i = 0; i < products->size; i++)
+	{
+		if (products->data[i].id == id)
+		{
+			is_found = 1;
+		}
+	}
+
+	return is_found;
+}
+
+struct Merchandise make_new_merchandise(struct Vector* list)
+{
+	struct Merchandise product;
+
+	int id;
+	int found = 0;
+	do
+	{
+		if (found)
+		{
+			printf("The id already exists. Set new ");
+		}
+
+		printf("Id: "); scanf("%d", &id);
+		found = is_unique(id, list);
+	} while (found);
+
+	product.id = id;
+
+	char product_name[100];
+	int bigger = 0;
+	do 
+	{
+		if (bigger)
+		{
+			printf("Name must be less than 60 symbols.\n");
+		}
+
+		printf("Set merchandise name [60 symbols]: "); scanf("%s", &product_name);
+
+		if (strlen(product_name) > 60)
+		{
+			bigger = 1;
+		}
+
+	} while (bigger);
+
+	strcpy(product.merch_name, product_name);
+
+	get_empty_input();
+
+	float price;
+	printf("Set price: "); scanf("%f", &price);
+
+	product.price = price;
+
+	unsigned short quantity;
+	printf("Set quantity: "); scanf("%hu", &quantity);
+	product.quantity = quantity;
+
+	char date_string[100];
+	printf("Set date in format dd:MM:yyyy:hh:mm:ss or \"now\" for current time:\n ");
+	scanf("%s", &date_string);
+
+	struct DateTime date_created;
+
+	if (date_string == "now")
+	{
+		GetSystemTime(&date_created);
+	}
+	else
+	{
+		get_time_by_string(&date_created, &date_string);
+	}
+
+	product.date_created = date_created;
+
+	int expire_days;
+	printf("In how many days does it expire: "); scanf("%d", &expire_days);
+	product.expire_days = expire_days;
+
+	char producer[100];
+	bigger = 0;
+	do
+	{
+		if (bigger)
+		{
+			printf("Name must be less than 40 symbols.\n");
+		}
+
+		printf("Set producer name [40 symbols]: "); scanf("%s", &producer);
+
+		if (strlen(producer) > 40)
+		{
+			bigger = 1;
+		}
+
+	} while (bigger);
+
+	strcpy(product.producer, producer);
+
+	get_empty_input();
+
+	char tax[100];
+	bigger = 0;
+	do
+	{
+		if (bigger)
+		{
+			printf("Tax number must be less than 11 symbols.\n");
+		}
+
+		printf("Set tax number [10 symbols]: "); scanf("%s", &tax);
+
+		if (strlen(tax) > 60)
+		{
+			bigger = 1;
+		}
+
+	} while (bigger);
+
+	strcpy(product.taxNumber, tax);
+
+	get_empty_input();
+
+	return product;
+}
+
+void get_time_by_string(struct DateTime * date, char * date_string)
+{
+	//Format dd:MM:yyyy:hh::mm:ss
+	
+	
+	struct DateTime now;
+	GetSystemTime(&now);
+
+	int count = 0;
+	while (count != 5)
+	{
+		char* current;
+		current = strtok(date_string, ":");
+
+		if (count == 0) // Day
+		{
+			if (current != NULL)
+			{
+				int day = atoi(current);
+				if (day <= 31)
+				{
+					date->day = day;
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				date->day = now.day;
+			}
+		}
+		else if (count == 1) // Month
+		{
+			if (current != NULL)
+			{
+				int month = atoi(current);
+				if (month <= 12)
+				{
+					date->month = month;
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				date->month = now.month;
+			}
+		}
+		else if (count == 2) // Year
+		{
+			if (current != NULL)
+			{
+				int year = atoi(current);
+				if (year <= 2100)
+				{
+					date->year = year;
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				date->year = now.year;
+			}
+		}
+		else if (count == 3) // Hours
+		{
+			if (current != NULL)
+			{
+				int hour = atoi(current);
+				if (hour <= 12)
+				{
+					date->hours = hour;
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				date->hours = now.hours;
+			}
+		}
+		else if (count == 4) // Minutes
+		{
+			if (current != NULL)
+			{
+				int mins = atoi(current);
+				if (mins < 60)
+				{
+					date->minutes = mins;
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				date->minutes = now.minutes;
+			}
+		}
+		else if (count == 5) // Seconds
+		{
+			if (current != NULL)
+			{
+				int secs = atoi(current);
+				if (secs < 59)
+				{
+					date->seconds = secs;
+				}
+				else
+				{
+					exit(1);
+				}
+			}
+			else
+			{
+				date->seconds = now.seconds;
+			}
+		}
+
+		count++;
+	}
+}
+
+void get_empty_input()
+{
+	while (getchar() != '\n');
+}
+
+void print_all_values(Vector * merch_list)
+{
+	if (merch_list->size > 0)
+	{
+		int i;
+		for (i = 0; i < merch_list->size; i++)
+		{
+			struct Merchandise product = merch_list->data[i];
+
+			printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
+			printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
+			printf("Tax number: %s\n", product.taxNumber);
+
+			print_char(25, '-');
+		}
+	}
+}
+
+void print_char(int count, char ch)
+{
+	int i;
+	for (i = 0; i < count; i++)
+	{
+		printf("%c", ch);
+	}
+	printf("\n");
+}
+
+void print_product_by_id(Vector* list, int id)
+{
+	if (list->size > 0)
+	{
+		int i;
+		for (i = 0; i < list->size; i++)
+		{
+			if (list->data[i].id == id)
+			{
+				print_single_product(list->data[i]);
+				break;
+			}
+		}
+	}
+}
+
+void print_single_product(struct Merchandise product)
+{
+	printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
+	printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
+	printf("Tax number: %s\n", product.taxNumber);
+
+	print_char(25, '-');
+}
+
+void print_all_expired_products(Vector * list)
+{
+	if (list->size > 0)
+	{
+		int i;
+		for (i = 0; i < list->size; i++)
+		{
+			struct Merchandise product = list->data[i];
+
+			if(has_expired(product))
+
+			printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
+			printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
+			printf("Tax number: %s\n", product.taxNumber);
+
+			print_char(25, '-');
+		}
+	}
+}
+
+int has_expired(struct Merchandise product)
+{
+	
+}
