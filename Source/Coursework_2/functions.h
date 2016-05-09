@@ -66,3 +66,6 @@ int get_days_in_months(int months);
 
 // Edit record by id
 void edit_by_id(int id, struct Vector* list);
+
+// Finds and deletes a record by id
+int delete_by_id(struct Vector* list, int id);

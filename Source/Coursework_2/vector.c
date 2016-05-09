@@ -31,7 +31,7 @@ void vector_resize_if_full(Vector* vector)
 	if (vector->size >= vector->capacity)
 	{
 		vector->capacity *= 2;
-		vector->data = realloc(vector->data, sizeof(int) * vector->capacity);
+		vector->data = realloc(vector->data, sizeof(struct Merchandise) * vector->capacity);
 	}
 }
 

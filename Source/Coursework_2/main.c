@@ -124,17 +124,17 @@ int main()
 						struct Merchandise product;
 
 						//Create new basic object
-						/*product.id = 1;
-						strcpy(product.merch_name, "Nvidia GTX 960");
-						product.price = 660.f;
-						product.quantity = 18;
+						product.id = 1;
+						strcpy(product.merch_name, "Alfa Romeo 156");
+						product.price = 1200.f;
+						product.quantity = 5;
 						struct DateTime dt;
 						GetSystemTime(&dt);
-						dt.day = 3;
+						dt.day = 2;
 						product.date_created = dt;
-						product.expire_days = 10;
-						strcpy(product.producer, "PALIT");
-						strcpy(product.taxNumber, "japantax");*/
+						product.expire_days = 5;
+						strcpy(product.producer, "ITALIA");
+						strcpy(product.taxNumber, "italtax");
 
 
 						/* Uncomment to let user create products */
@@ -144,7 +144,7 @@ int main()
 						//printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
 						//printf("Tax number: %s\n", product.taxNumber);
 
-						//vector_append(&merch_list, &product);
+						vector_append(&merch_list, &product);
 
 						system("pause");
 						clear_cons();

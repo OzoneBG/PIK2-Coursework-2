@@ -676,66 +676,88 @@ int get_days_in_months(int months)
 
 void edit_by_id(int id, Vector * list)
 {
-	//TO DO
-	// fix
+	struct Merchandise* target = NULL;
 
-	/*if (list->size > 0)
+	int i;
+	for (i = 0; i < list->size; i++)
 	{
-		int i = 0;
-		for (i; i < list->size; i++)
+		if (list->data[i].id == id)
+		{
+			target = &list->data[i];
+			break;
+		}
+	}
+
+	if (!target)
+	{
+		printf("Didn't found anything!\n");
+		return;
+	}
+
+	printf("Current quantity of %s is %hu\n", target->merch_name, target->quantity);
+
+	printf("1. Add quantity\n");
+	printf("2. Remove quantity\n");
+
+	int ch;
+	scanf("%d", &ch);
+
+	unsigned short new_quant;
+	printf("Amount: "); scanf("%hu", &new_quant);
+
+	if (ch == 1)
+	{
+		target->quantity += new_quant;
+	}
+	else if (ch == 2)
+	{
+		if (new_quant > target->quantity)
+		{
+			printf("You can't remove than there is!\n");
+		}
+		else
+		{
+			target->quantity -= new_quant;
+		}
+	}
+
+	if (target->quantity != 0)
+	{
+		printf("New quantity is: %hu\n", target->quantity);
+	}
+	else if (target->quantity == 0)
+	{
+		delete_by_id(list, id);
+	}
+}
+
+int delete_by_id(Vector* list, int id)
+{
+	if (list->size > 0)
+	{
+		Vector new_list;
+		vector_init(&new_list);
+
+		int i;
+		for (i = 0; i < list->size; i++)
 		{
 			if (list->data[i].id == id)
 			{
-				// found match
-				// print quantity
-				printf("Current quantity of %s is %d\n", list->data[i].merch_name, list->data[i].quantity);
-
-				// ask for quantity
-				int choice;
-				printf("Do you want to add or remove quantity 1 or 2: "); scanf("%d", &choice);
-
-				unsigned short new_quantity;
-				printf("New quantity: "); scanf("%hu", &new_quantity);
-
-				int can_modify = 0;
-
-				// do chec
-				if (choice == 1) // we want to add
-				{
-					unsigned short old_quantity = list->data[i].quantity;
-					list->data[i].quantity = new_quantity + old_quantity;
-					break;
-				}
-				else if (choice == 2) // we want to substract
-				{
-					while (new_quantity > list->data[i].quantity)
-					{
-						printf("New quantity: "); scanf("%hu", &new_quantity);
-
-						if (new_quantity > list->data[i].quantity)
-						{
-							printf("You can't remove more than there is!\n");
-						}
-						else if (new_quantity == 0)
-						{
-							//TO DO
-							//Remove from file
-							printf("Removing from file\n");
-						}
-						else
-						{
-							can_modify = 1;
-						}
-					}
-
-					if (can_modify)
-					{
-						unsigned short old_quantity = list->data[i].quantity;
-						list->data[i].quantity = old_quantity - new_quantity;
-						break;
-					}
-				}
+				printf("Record with id %d found and deleted!\n", id);
+			}
+			else
+			{
+				vector_append(&new_list, &list->data[i]);
 			}
 		}
-	}*/
+
+		vector_free(list);
+
+		vector_init(list);
+
+		for (i = 0; i < new_list.size; i++)
+		{
+			list->data[i] = new_list.data[i];
+		}
+	}
 }
