@@ -597,7 +597,7 @@ void print_all_expired_products(Vector * list)
 			{
 
 				printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
-				printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);
+				printf("Quantity: %hu\nDate: %d-%d-%d\nExpires in: %d days\nProducer: %s\n", product.quantity, product.date_created.day, product.date_created.month, product.date_created.year, product.expire_days, product.producer);
 				printf("Tax number: %s\n", product.taxNumber);
 
 				print_char(25, '-');
@@ -674,7 +674,7 @@ int get_days_in_months(int months)
 	return days;
 }
 
-void edit_by_id(int id, Vector * list)
+void edit_by_id(int id, Vector * list, Vector* temp)
 {
 	struct Merchandise* target = NULL;
 
@@ -727,37 +727,40 @@ void edit_by_id(int id, Vector * list)
 	}
 	else if (target->quantity == 0)
 	{
-		delete_by_id(list, id);
+		if (list->size > 0)
+		{
+			int i;
+			for (i = 0; i < list->size; i++)
+			{
+				if (list->data[i].id == id)
+				{
+					printf("Record with id %d found and deleted!\n", id);
+				}
+				else
+				{
+					vector_append(temp, &list->data[i]);
+				}
+			}
+		}
 	}
 }
 
-int delete_by_id(Vector* list, int id)
+void sort_producers(Vector * list)
 {
-	if (list->size > 0)
+	// First find all producers
+	struct Producer* producers;
+	producers = malloc(sizeof(Producer) * 50);
+
+	int i;
+	for (i = 0; i < list->size; i++)
 	{
-		Vector new_list;
-		vector_init(&new_list);
+		struct Merchandise current = vector_get(list, i);
 
-		int i;
-		for (i = 0; i < list->size; i++)
-		{
-			if (list->data[i].id == id)
-			{
-				printf("Record with id %d found and deleted!\n", id);
-			}
-			else
-			{
-				vector_append(&new_list, &list->data[i]);
-			}
-		}
-
-		vector_free(list);
-
-		vector_init(list);
-
-		for (i = 0; i < new_list.size; i++)
-		{
-			list->data[i] = new_list.data[i];
-		}
+		
 	}
+
+	// Then sort them in descending order
+
+	// Finally print them
 }
+

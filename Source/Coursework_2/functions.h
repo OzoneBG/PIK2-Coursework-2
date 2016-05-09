@@ -65,7 +65,10 @@ void cpy_time(struct DateTime* time, struct tm* str_time);
 int get_days_in_months(int months);
 
 // Edit record by id
-void edit_by_id(int id, struct Vector* list);
+void edit_by_id(int id, struct Vector* list, struct Vector* temp);
 
-// Finds and deletes a record by id
-int delete_by_id(struct Vector* list, int id);
+// Find all producers and sorts them in descending order by total amount of product quantity
+void sort_producers(struct Vector* list);
+
+// Pauses the program
+void cons_pause();

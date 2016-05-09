@@ -15,6 +15,7 @@
 #include "datetime.h"
 #include "merchandise.h"
 #include "vector.h"
+#include "producer.h"
 
 #define WIN_TERMINAL
 #ifdef WIN_TERMINAL

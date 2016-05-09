@@ -121,6 +121,7 @@
     <ClInclude Include="declarations.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="merchandise.h" />
+    <ClInclude Include="producer.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -125,12 +125,12 @@ int main()
 
 						//Create new basic object
 						product.id = 1;
-						strcpy(product.merch_name, "Alfa Romeo 156");
+						strcpy(product.merch_name, "dsadas");
 						product.price = 1200.f;
 						product.quantity = 5;
 						struct DateTime dt;
 						GetSystemTime(&dt);
-						dt.day = 2;
+						//dt.day = 2;
 						product.date_created = dt;
 						product.expire_days = 5;
 						strcpy(product.producer, "ITALIA");
@@ -146,7 +146,7 @@ int main()
 
 						vector_append(&merch_list, &product);
 
-						system("pause");
+						system("pause");;
 						clear_cons();
 					}
 					else if (selectedMenuOption == 2)
@@ -156,9 +156,24 @@ int main()
 						int id;
 						printf("Select id: "); scanf("%d", &id);
 
-						edit_by_id(id, &merch_list);
+						Vector temp;
+						vector_init(&temp);
+						edit_by_id(id, &merch_list, &temp);
 
-						system("pause");
+						if (temp.size > 0)
+						{
+							vector_free(&merch_list);
+							vector_init(&merch_list);
+
+							int i;
+							for (i = 0; i < temp.size; i++)
+							{
+								struct Merchandise tmp = vector_get(&temp, i);
+								vector_append(&merch_list, &tmp);
+							}
+						}
+
+						system("pause");;
 						clear_cons();
 					}
 					else if (selectedMenuOption == 3)
@@ -173,7 +188,7 @@ int main()
 					else if (selectedMenuOption == 4)
 					{
 						printf("Here's a list of all producers!\n");
-						system("pause");
+						system("pause");;
 						clear_cons();
 					}
 					else if (selectedMenuOption == 5)
@@ -184,7 +199,7 @@ int main()
 						printf("Id: "); scanf("%d", &id);
 						print_product_by_id(&merch_list, id);
 
-						system("pause");
+						system("pause");;
 						clear_cons();
 					}
 					else if (selectedMenuOption == 6)
@@ -193,7 +208,7 @@ int main()
 
 						print_all_values(&merch_list);
 
-						system("pause");
+						system("pause");;
 						clear_cons();
 					}
 					else if (selectedMenuOption == 7)
@@ -212,7 +227,7 @@ int main()
 						char* path[100];
 						scanf("%s", path);
 						load_custom_colors(&colorconf, path);
-						system("pause");
+						system("pause");;
 						clear_cons();
 					}
 					else if (selectedMenuOption == 2)
