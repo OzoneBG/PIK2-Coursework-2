@@ -748,19 +748,115 @@ void edit_by_id(int id, Vector * list, Vector* temp)
 void sort_producers(Vector * list)
 {
 	// First find all producers
-	struct Producer* producers;
-	producers = malloc(sizeof(Producer) * 50);
+	Producer* producers;
+	producers = malloc(sizeof(Producer) * 25);
+
+	//Add first element, then continue!
+	int current_count = 0;
+	struct Merchandise current = vector_get(list, current_count++);
+	strcpy(producers->producer_name, current.producer);
+	strcpy(producers->tax_number, current.taxNumber);
+	producers->quantity = 0;
+	producers->quantity += current.quantity;
+	producers->total_merchandise = 1;
 
 	int i;
-	for (i = 0; i < list->size; i++)
+	for (i = 1; i < list->size; i++)
 	{
-		struct Merchandise current = vector_get(list, i);
-
+		current = vector_get(list, i);
 		
+		//char curr_name[40];
+		char* curr_name = malloc(sizeof(char) * 40);
+		strcpy(curr_name, current.producer);
+
+		int found = check_if_exists(producers, current_count, curr_name);
+		//int found = 1;
+		if (found)
+		{
+			int j;
+			for (j = 0; j < current_count; j++)
+			{
+				int res = strcmp(producers[j].producer_name, current.producer);
+				if (res == 0)
+				{
+					producers[j].quantity += current.quantity;
+					producers[j].total_merchandise++;
+				}
+			}
+		}
+		else
+		{
+			strcpy(producers[current_count].producer_name, current.producer);
+			strcpy(producers[current_count].tax_number, current.taxNumber);
+			producers[current_count].quantity = 0;
+			producers[current_count].quantity += current.quantity;
+			producers[current_count].total_merchandise = 1;
+			current_count++;
+		}
+
 	}
 
 	// Then sort them in descending order
+	for (i = 0; i < current_count; i++)
+	{
+		for (int j = i + 1; j < current_count; j++)
+		{
+			if (producers[i].quantity == producers[j].quantity)
+			{
+				if (producers[i].total_merchandise < producers[j].total_merchandise)
+				{
+					swap_producers(&producers[i], &producers[j]);
+				}
+			}
+			else if (producers[i].quantity < producers[j].quantity)
+			{
+				swap_producers(&producers[i], &producers[j]);
+			}
+		}
+	}
 
 	// Finally print them
+	for (i = 0; i < current_count; i++)
+	{
+		printf("%s | %s | %d | %d\n", producers[i].tax_number, producers[i].producer_name, producers[i].quantity, producers[i].total_merchandise);
+	}
 }
 
+int check_if_exists(Producer * producers, int size, char * curr_name)
+{
+	int match = 0;
+	int i = 0;
+	for (i; i < size; i++)
+	{
+		int result = strcmp(producers[i].producer_name, curr_name);
+		if (result == 0)
+		{
+			match = 1;
+			break;
+		}
+	}
+
+	return match;
+}
+
+void swap_producers(Producer * a, Producer * b)
+{
+	// temp = a
+	Producer tmp;
+	strcpy(tmp.tax_number, a->tax_number);
+	strcpy(tmp.producer_name, a->producer_name);
+	tmp.quantity = a->quantity;
+	tmp.total_merchandise = a->total_merchandise;
+
+	// a = b
+	strcpy(a->tax_number, b->tax_number);
+	strcpy(a->producer_name, b->producer_name);
+	a->quantity = b->quantity;
+	a->total_merchandise = b->total_merchandise;
+
+	// b = temp
+	strcpy(b->tax_number, tmp.tax_number);
+	strcpy(b->producer_name, tmp.producer_name);
+	b->quantity = tmp.quantity;
+	b->total_merchandise = tmp.total_merchandise;
+}

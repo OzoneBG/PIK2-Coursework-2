@@ -124,7 +124,7 @@ int main()
 						struct Merchandise product;
 
 						//Create new basic object
-						product.id = 1;
+						product.id = 13;
 						strcpy(product.merch_name, "dsadas");
 						product.price = 1200.f;
 						product.quantity = 5;
@@ -133,8 +133,8 @@ int main()
 						//dt.day = 2;
 						product.date_created = dt;
 						product.expire_days = 5;
-						strcpy(product.producer, "ITALIA");
-						strcpy(product.taxNumber, "italtax");
+						strcpy(product.producer, "ASEM");
+						strcpy(product.taxNumber, "asemp");
 
 
 						/* Uncomment to let user create products */
@@ -188,6 +188,7 @@ int main()
 					else if (selectedMenuOption == 4)
 					{
 						printf("Here's a list of all producers!\n");
+						sort_producers(&merch_list);
 						system("pause");;
 						clear_cons();
 					}

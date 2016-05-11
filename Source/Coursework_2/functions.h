@@ -70,5 +70,6 @@ void edit_by_id(int id, struct Vector* list, struct Vector* temp);
 // Find all producers and sorts them in descending order by total amount of product quantity
 void sort_producers(struct Vector* list);
 
-// Pauses the program
-void cons_pause();
+int check_if_exists(struct Producer * producers, int size, char * curr_name);
+
+void swap_producers(struct Producer ** a, struct Producer ** b);
