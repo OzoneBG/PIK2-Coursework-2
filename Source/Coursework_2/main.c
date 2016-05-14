@@ -124,21 +124,21 @@ int main()
 						struct Merchandise product;
 
 						//Create new basic object
-						product.id = 13;
-						strcpy(product.merch_name, "dsadas");
-						product.price = 1200.f;
-						product.quantity = 5;
-						struct DateTime dt;
-						GetSystemTime(&dt);
-						//dt.day = 2;
-						product.date_created = dt;
-						product.expire_days = 5;
-						strcpy(product.producer, "ASEM");
-						strcpy(product.taxNumber, "asemp");
+						//product.id = 10;
+						//strcpy(product.merch_name, "G19");
+						//product.price = 350.f;
+						//product.quantity = 6;
+						//struct DateTime dt;
+						//GetSystemTime(&dt);
+						////dt.day = 2;
+						//product.date_created = dt;
+						//product.expire_days = 2;
+						//strcpy(product.producer, "Heckler&Koch");
+						//strcpy(product.taxNumber, "germantax");
 
 
 						/* Uncomment to let user create products */
-						//product = make_new_merchandise(&merch_list);
+						product = make_new_merchandise(&merch_list);
 
 						//printf("Id: %d\nMerchandise name: %s\nPrice: %f\n", product.id, product.merch_name, product.price);
 						//printf("Quantity: %hu\nExpires in: %d days\nProducer: %s\n", product.quantity, product.expire_days, product.producer);

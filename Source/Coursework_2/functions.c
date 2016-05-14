@@ -294,7 +294,7 @@ struct Merchandise make_new_merchandise(struct Vector* list)
 
 	product.id = id;
 
-	char product_name[100];
+	char product_name[60];
 	int bigger = 0;
 	do 
 	{
@@ -321,17 +321,17 @@ struct Merchandise make_new_merchandise(struct Vector* list)
 
 	product.price = price;
 
-	unsigned short quantity;
+	short quantity;
 	printf("Set quantity: "); scanf("%hu", &quantity);
-	product.quantity = quantity;
+	product.quantity = abs(quantity);
 
 	char date_string[100];
-	printf("Set date in format dd:MM:yyyy:hh:mm:ss or \"now\" for current time:\n ");
+	printf("Set date in format dd:MM:yyyy:hh:mm:ss or \"now\" for current time:\n");
 	scanf("%s", &date_string);
 
 	struct DateTime date_created;
 
-	if (date_string == "now")
+	if (strcmp(date_string, "now") == 0)
 	{
 		GetSystemTime(&date_created);
 	}
