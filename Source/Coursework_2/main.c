@@ -5,6 +5,9 @@ int main()
 	//Should the program contninue the main loop
 	int should_run = 1;
 
+	// Keyboard press input
+	char ch;
+
 	//Currently selected row
 	int selectedMenuOption = 1;
 
@@ -16,10 +19,6 @@ int main()
 
 	// Current color configuration
 	struct ColorConfig colorconf;
-
-	// Open database file, ready for reading and writing operations
-	//FILE* db_read = fopen("database.bin", "r");
-	//FILE* db_write = fopen("database.bin", "w");
 
 	// Create an empty vector to keep record of all merchandise read from the database
 	Vector merch_list;
@@ -35,7 +34,7 @@ int main()
 	read_all_merchandise(&merch_list);
 
 	printf("Do you want to load a color scheme file? Y/N\n");
-	char ch;
+	
 	scanf("%c", &ch);
 	if (ch == 'y' || ch == 'Y')
 	{
